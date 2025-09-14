@@ -1,0 +1,21 @@
+body {
+    font-family: 'SF Pro Display', 'Roboto', Arial, sans-serif;
+    background: #f7f8fa;
+}
+.card {
+    box-shadow: 0 4px 16px rgba(67,160,71,0.08);
+    border: none;
+}
+.card-content {
+    padding-bottom: 8px !important;
+}
+.fixed-action-btn {
+    bottom: 32px;
+    right: 32px;
+}
+.btn-floating.btn-large {
+    box-shadow: 0 4px 16px rgba(255,0,0,0.12);
+}
+h4, h5 {
+    font-family: 'SF Pro Display', 'Roboto', Arial, sans-serif;
+}
