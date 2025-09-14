@@ -1,0 +1,116 @@
+Tentu, ini adalah prompt yang bisa Anda gunakan untuk menghasilkan aplikasi PHP perhitungan panen sawit sesuai dengan kebutuhan Anda. Prompt ini dirancang agar detail dan lengkap, sehingga AI atau developer dapat memahami dengan jelas apa yang harus dibuat.
+
+Anda bisa menyalin dan menggunakan prompt ini pada platform AI seperti ChatGPT (GPT-4), Claude, atau Gemini, atau memberikannya kepada seorang developer.
+
+-----
+
+### Prompt untuk Pembuatan Aplikasi Kalkulator Panen Sawit
+
+**Peran:** Anda adalah seorang pengembang full-stack yang ahli dalam PHP, MySQL, dan Materialize CSS.
+
+**Tugas Utama:** Buat kode sumber lengkap untuk aplikasi web minimalis bernama "Kalkulator Panen Sawit". Aplikasi ini bertujuan untuk mencatat dan menghitung pendapatan bersih dari setiap panen kelapa sawit. Desain harus bersih, modern, dan dioptimalkan untuk tampilan mobile (webview) menggunakan framework Materialize CSS.
+
+-----
+
+### **Spesifikasi Fungsional**
+
+Aplikasi ini akan memiliki 3 halaman utama:
+
+**1. Halaman Depan (Dashboard) - `index.php`**
+Halaman ini adalah tampilan utama yang pertama kali dilihat pengguna.
+
+  * **Tampilan:** Sangat minimalis. Tampilkan dua informasi utama dalam bentuk "Kartu" (Card) yang besar dan mudah dibaca.
+      * **Kartu 1: Total Pendapatan Bersih**
+          * Judul: "Total Pendapatan Bersih".
+          * Isi: Menampilkan total akumulasi pendapatan bersih dari semua data panen yang tersimpan di database. Format dalam Rupiah (misal: `Rp 15.250.000`).
+          * Icon: Gunakan Material Icon `monetization_on`.
+      * **Kartu 2: Total Berat Bersih**
+          * Judul: "Total Berat Bersih".
+          * Isi: Menampilkan total akumulasi berat bersih (setelah potongan) dari semua data panen. Format dalam Kilogram (misal: `7.500 kg`).
+          * Icon: Gunakan Material Icon `scale`.
+  * **Tombol Aksi (Floating Action Button):**
+      * Sediakan sebuah "Floating Action Button" (FAB) di pojok kanan bawah dengan icon `add`.
+      * Ketika tombol ini diklik, pengguna akan diarahkan ke Halaman Input Data.
+
+**2. Halaman Input Data - `input.php`**
+Halaman untuk menambahkan catatan panen baru.
+
+  * **Formulir Input:** Gunakan komponen form dari Materialize CSS.
+      * **Berat Kotor (kg):**
+          * Label: "Berat Timbangan (kg)".
+          * Tipe Input: Angka (`number`).
+          * Wajib diisi.
+          * Icon: `weight`.
+      * **Harga per kg (Rp):**
+          * Label: "Harga per kg (Rp)".
+          * Tipe Input: Angka (`number`).
+          * Wajib diisi.
+          * Icon: `price_change`.
+      * **Berat Setelah Potong (kg):**
+          * Label: "Berat Bersih (Setelah Potong)".
+          * Tipe Input: Angka (`number`).
+          * Wajib diisi.
+          * Icon: `cut`.
+      * **Tanggal Panen:**
+          * Label: "Tanggal Panen".
+          * Tipe Input: Tanggal (`date`).
+          * Secara otomatis terisi dengan tanggal hari ini, namun pengguna bisa mengubahnya. Gunakan komponen "Date Picker" dari Materialize CSS.
+          * Icon: `calendar_today`.
+  * **Tombol Simpan:**
+      * Sebuah tombol dengan teks "Simpan Data".
+      * Ketika diklik, data akan diproses oleh skrip PHP, disimpan ke database, dan pengguna dialihkan kembali ke Halaman Depan (Dashboard).
+
+**3. Halaman Riwayat Panen - `riwayat.php` (Opsional tapi sangat direkomendasikan)**
+Halaman untuk melihat daftar semua catatan panen yang telah diinput.
+
+  * **Tampilan:** Tampilkan data dalam bentuk "Collection" atau "Card" untuk setiap entri.
+  * **Data per Entri:** Setiap entri harus menampilkan:
+      * Tanggal Panen
+      * Berat Bersih
+      * Harga per kg
+      * Pendapatan Bersih untuk entri tersebut (`Berat Bersih * Harga per kg`)
+  * **Navigasi:** Sediakan tombol navigasi di `index.php` untuk menuju halaman ini (misalnya di header atau footer).
+
+-----
+
+### **Spesifikasi Teknis**
+
+  * **Backend:**
+      * **Bahasa:** PHP 8.1 atau lebih baru.
+      * **Database:** MySQL atau MariaDB.
+      * **Logika:**
+          * Buat skrip koneksi database (`config.php`).
+          * Buat skrip untuk memproses dan menyimpan data dari form (`simpan_panen.php`).
+          * Buat skrip untuk mengambil data agregat (TOTAL pendapatan, TOTAL berat) untuk dashboard.
+          * Buat skrip untuk mengambil semua riwayat panen.
+  * **Frontend:**
+      * **Framework:** **Materialize CSS (versi 1.0.0)**. Gunakan CDN untuk kemudahan.
+      * **Struktur:** HTML5 semantik.
+      * **Icons:** **Material Icons** dari Google Fonts. Pastikan link untuk ikon disertakan.
+      * **JavaScript:** Gunakan sedikit JavaScript/jQuery (yang sudah termasuk di Materialize) untuk menginisialisasi komponen seperti Date Picker dan FAB.
+  * **Struktur Database:**
+      * Nama Database: `db_sawit`
+      * Nama Tabel: `panen`
+      * Struktur Kolom:
+          * `id` (INT, Primary Key, AUTO\_INCREMENT)
+          * `tanggal_panen` (DATE)
+          * `berat_kotor` (DECIMAL(10,2))
+          * `harga_per_kg` (INT)
+          * `berat_bersih` (DECIMAL(10,2))
+          * `timestamp` (TIMESTAMP, default CURRENT\_TIMESTAMP)
+
+### **Struktur File yang Diharapkan**
+
+```
+/kalkulator-sawit/
+├── index.php         // Halaman Dashboard
+├── input.php         // Halaman Form Input
+├── riwayat.php       // Halaman Riwayat (Opsional)
+├── config.php        // Koneksi ke Database
+├── simpan_panen.php  // Skrip backend untuk menyimpan data
+└── assets/
+    └── css/
+        └── style.css // Untuk custom style jika ada
+```
+
+Tolong sediakan kode lengkap untuk semua file yang diperlukan agar aplikasi dapat berjalan dengan baik. Sertakan juga query SQL untuk membuat tabel `panen`.
